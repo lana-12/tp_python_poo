@@ -1,0 +1,14 @@
+{
+    "movies": [
+        {
+            "title": "Inceptionn",
+            "release_date": "2010/06/16",
+            "synopsis": "A thief who steals corporate secrets through dream-sharing technology."
+        },
+        {
+            "title": "The Matrix",
+            "release_date": "1999-03-31",
+            "synopsis": "A computer hacker learns about the true nature of his reality."
+        }
+    ]
+}

@@ -1,6 +1,10 @@
 from entreprise import Entreprice
 from connection_data import DatabaseConnection
 from banque import Client, CompteBancaire
+from gestion_movie import Movie
+
+
+
 
 #############################
     #### Exercice 1 ####
@@ -48,32 +52,32 @@ from banque import Client, CompteBancaire
     #### Exercice 3 ####
 #############################
 
-# # Client sans erreur
-try:
-    # Create clients
-    client1 = Client("giac", "vivi", "    123698521478963")
-    client2 = Client("Sui", "Ghis", "236985478963258")
-    print(client1)
-    print(client2)
+# Client sans erreur
+# try:
+#     # Create clients
+#     client1 = Client("giac", "vivi", "    123698521478963")
+#     client2 = Client("Sui", "Ghis", "236985478963258")
+#     print(client1)
+#     print(client2)
     
-    # Create compte bancaire
-    compte1 = CompteBancaire("2024-01-01", client1, 1500.0)
-    compte2 = CompteBancaire("2024-04-26", client2, 2600.0)
-    compte3 = CompteBancaire("2024-09-05", client1, 600.0)
-    compte4 = CompteBancaire("2024-09-05", client2, 600.0)
+#     # Create compte bancaire
+#     compte1 = CompteBancaire("2024-01-01", client1, 1500.0)
+#     compte2 = CompteBancaire("2024-04-26", client2, 2600.0)
+#     compte3 = CompteBancaire("2024-09-05", client1, 600.0)
+#     compte4 = CompteBancaire("2024-09-05", client2, 600.0)
 
-    # Display Id
-    print(compte1.id_interne)
-    print(compte2.id_interne)
+#     # Display Id
+#     print(compte1.id_interne)
+#     print(compte2.id_interne)
   
-    # Display __eq__
-    print(compte4 == compte3)
+#     # Display __eq__
+#     print(compte4 == compte3)
     
-    #display TOTAL_SOLDES
-    print(CompteBancaire.total_soldes())
+#     #display TOTAL_SOLDES
+#     print(CompteBancaire.total_soldes())
     
-except ValueError as e:
-    print(e)
+# except ValueError as e:
+#     print(e)
 
 # Client avec erreur
 # try:
@@ -84,8 +88,68 @@ except ValueError as e:
 #     print(e)
 
 
-
-
 #############################
     #### Exercice 4 ####
 #############################
+
+while True:
+    print("\n==== Menu ====")
+    print("1. Create a new movie")
+    print("2. Read movies (all or by title)")
+    print("3. Update a movie")
+    print("4. Delete a movie")
+    print("5. Exit")
+    
+    choice = input("Choose an option (1-5): ")
+    
+    if choice == '1':
+ 
+        title = input("Enter the movie title: ")
+        release_date = input("Enter the release date (DD/MM/YYYY): ")
+        synopsis = input("Enter the movie synopsis: ")
+        movie = Movie(title, release_date, synopsis)
+        movie.dump_movie()
+        print("Movie added successfully!")
+    
+    elif choice == '2':
+
+        sub_choice = input("1. Read all movies\n2. Search by title\nChoose an option: ")
+        
+        if sub_choice == '1':
+            print("All movies:")
+            Movie.get_all_movies()
+        
+        elif sub_choice == '2':
+            title = input("Enter the movie title: ")
+            movie = Movie.find_movie_by_title(title)
+            if movie:
+                print(f"Found movie: {movie}")
+            else:
+                print("Movie not found.")
+    
+    elif choice == '3':
+        title = input("Enter the movie title to update: ")
+        movie = Movie.find_movie_by_title(title)
+        if movie:
+            new_title = input("Enter the new title (leave blank to keep unchanged): ")
+            new_release_date = input("Enter the new release date (leave blank to keep unchanged): ")
+            new_synopsis = input("Enter the new synopsis (leave blank to keep unchanged): ")
+            Movie.update_movie(title, new_title=new_title, new_release_date=new_release_date, new_synopsis=new_synopsis)
+        else:
+            print("Movie not found.")
+    
+    elif choice == '4':
+
+        title = input("Enter the movie title to delete: ")
+        Movie.delete_movie(title)
+    
+    elif choice == '5':
+
+        print("Exiting the program.")
+        break
+    
+    else:
+        print("Invalid choice. Please choose a valid option.")
+
+
+
